@@ -1,3 +1,6 @@
+// Get references to the html elements
+const searchInput = document.getElementById('search-input');
+
 // Open Library API endpoint.
 const openLibraryUrl = 'http://openlibrary.org/search.json?q=';
 
