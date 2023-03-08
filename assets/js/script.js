@@ -66,37 +66,43 @@ searchButton.addEventListener("click", () => {
       }
 
       // This goes through each book in the search and if the search matches, it displays the following to the html:
+      var resultsCount = 0;
       data.docs.forEach((book) => {
+        if (resultsCount >= 5) {
+          return;
+        }
         const result = document.createElement("div");
         result.classList.add("result");
+        const cardTemplate = `
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="${
+                                  book.cover_i
+                                    ? `http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
+                                    : "https://via.placeholder.com/150"
+                                }" alt="Book cover image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <p class="title is-4">${
+                              book.title ? book.title : "Unknown"
+                            }</p>
+                            <p class="subtitle is-6">${
+                              book.author_name
+                                ? book.author_name.join(", ")
+                                : "Unknown"
+                            }</p>
+                        </div>
+                    </div>
+                `;
 
-        // This displays the book title to the html
-        const title = document.createElement("h3");
-        title.textContent = book.title;
-        result.appendChild(title);
-
-        // This displays the year the book was published to the html
-        const year = document.createElement("p");
-        if (book.first_publish_year) {
-          year.textContent = `Year: ${book.first_publish_year}`; // add the year if available
-        } else {
-          year.textContent = "Year: Unknown"; // if year is not available, display 'Unknown'
-        }
-        result.appendChild(year);
-
-        // This displays the book author to the html
-        const author = document.createElement("p");
-        author.textContent = `by ${
-          book.author_name ? book.author_name.join(", ") : "Unknown"
-        }`;
-        result.appendChild(author);
-
-        // This displays the book cover image to the html
-        const cover = document.createElement("img");
-        cover.src = `http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
-        result.appendChild(cover);
-
+        result.addEventListener("click", () => {
+          console.log("it worked");
+        });
+        result.innerHTML = cardTemplate;
         resultsContainer.appendChild(result);
+        resultsCount++;
       });
     })
 
