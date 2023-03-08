@@ -36,10 +36,25 @@ fetch(`${openLibraryUrl}${searchTerm}`)
         }
 
         // This goes through each book in the search and if the search matches, it displays the following to the html:
+        var resultsCount = 0;
         data.docs.forEach(book => {
-            const result = document.createElement('div');
+          if (resultsCount >= 5){
+            return;
+          } 
+          const result = document.createElement('div');
             result.classList.add('result');
+            // Use the card template to create a new result element
+            // result.innerHTML = cardTemplate;
+            // // Update the card fields with the corresponding data from the API response
+            // result.querySelector('.title').textContent = book.title;
+            // result.querySelector('.subtitle').textContent = book.author_name ? book.author_name.join(', ') : 'Unknown';
+            // result.querySelector('img').src = `http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
 
+            // var bookImage =;
+            // var bookTitle =;
+            // var bookAuthor =;
+            // var bookYear =;
+          
             // This displays the book title to the html
             const title = document.createElement('h3');
             title.textContent = book.title;
@@ -64,7 +79,11 @@ fetch(`${openLibraryUrl}${searchTerm}`)
             cover.src = `http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
             result.appendChild(cover);
     
+            result.addEventListener('click',() => {
+              console.log('it worked');
+            });
             resultsContainer.appendChild(result);
+            resultsCount++;
           });
         })
 
@@ -76,4 +95,19 @@ fetch(`${openLibraryUrl}${searchTerm}`)
           resultsContainer.appendChild(message);
         });
     });
+
+   
       
+//     var cardTemplate = `
+//     <div class="card">
+//   <div class="card-image">
+//     <figure class="image is-4by3">
+//       <img src="${bookImage}" alt="Placeholder image">
+//     </figure>
+//   </div>
+//   <div class="card-content">
+//         <p class="title is-4">${bookTitle}</p>
+//         <p class="subtitle is-6">${authorName}</p>
+//   </div>
+// </div>
+//     `;
