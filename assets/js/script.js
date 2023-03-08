@@ -2,6 +2,7 @@
 const searchInput = document.getElementById("search-bar");
 const searchButton = document.getElementById("search-button");
 const resultsContainer = document.getElementById("results-container");
+const movieContainer = document.getElementById("movie-container");
 
 // TMDB API Key & Endpoint
 const tmdbApiKey = "e7f5fe706f136f8b165baa6ae5a2f4aa";
@@ -9,15 +10,26 @@ const tmdbUrl = "https://api.themoviedb.org/3/search/movie?";
 
 // Fetch data from TMDB API using the title of the selected book
 // TODO fix the fetch url, currently using an example url but need to make it dynamic
-fetch(
-  "https://api.themoviedb.org/3/search/movie?api_key=e7f5fe706f136f8b165baa6ae5a2f4aa&language=en-US&query=To%20Kill%20A%20Mockingbird&page=1&include_adult=false"
-)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);
-  });
+
+function getMovieResults() {
+  fetch(
+    "https://api.themoviedb.org/3/search/movie?api_key=e7f5fe706f136f8b165baa6ae5a2f4aa&language=en-US&query=Jdksdlisdsdsd&page=1&include_adult=false"
+  )
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      if (data.results.length < 1) {
+        var message = document.createElement("div");
+        message.textContent = "No results found.";
+        movieContainer.appendChild(message);
+        return;
+      }
+    });
+}
+
+getMovieResults();
 
 // Open Library API endpoint (added an 's' to the http to make it more secure).
 const openLibraryUrl = "https://openlibrary.org/search.json?q=";
