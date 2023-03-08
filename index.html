@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head> 
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=.1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Movie-Book Match</title>
-        <link href="stylesheet" href="./assets/css/style.css">
-    </head>
 
-    <body>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Movie-Book Match</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
     <header>
-        <h1>Movie-Book Match</h1>
-        <input id="search-bar" type="text" placeholder="Enter a Movie"> <button type="button">Get Results</button>
+        <h1>The Other Match.com</h1>
+        <p>If you've ever wondered if that book you love has been made into a movie, look no further! Type your favorite
+            book in below!</p>
+            <input id="search-bar" type="text" placeholder="Enter a Movie">
+            <button id="search-button">Search</button>
+            <div id="results-container"></div>
+            <h2>Search Results</h2>
+                    <h2>First Results</h2>
+                    <p>These are the results!!</p>
+                </div>
     </header>
     <main>
-        <h2>Search Results</h2>
-    <section id="Results1" class="Results1">
-        <h2>First Results</h2>
-        <p>These are the results!!</p>
-    </section>
+        <div class="container">
+        <section id="Results2" class="movie-card">
+            <h2>Second Results</h2>
+        </section>
 
-    <section id="Results2" class="Results2">
-        <h2>Second Results</h2>
-    </section>
-        <button type="button">Second Results</button>
+        <section id="Results3" class="movie-card">
+            <h2>Third Results</h2>
+        </section>
 
-    <section id="Results3" class="Results3">
-        <h2>Third Results</h2>
-    </section>
+        <section id="Results4" class="movie-card">
+            <h2>Fourth Results</h2>
+        </section>
 
-    <section id="Results4" class="Results4">
-        <h2>Fourth Results</h2>
-    </section>
-
-
+        </div>
     </main>
     <aside>
         <h2>Previous Searches</h2>
@@ -45,5 +49,6 @@
     <footer>
 
     </footer>
-    </body>
+</body>
+
 </html>
