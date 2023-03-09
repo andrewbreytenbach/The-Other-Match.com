@@ -2,51 +2,58 @@
 const searchInput = document.getElementById("search-bar");
 const searchButton = document.getElementById("search-button");
 const bookResultsEl = document.getElementById("book-results");
-const movieContainer = document.getElementById("movie-container");
+const movieResultsEl = document.getElementById("movie-results");
 
 // TMDB API Key & Endpoint
-const tmdbApiKey = "e7f5fe706f136f8b165baa6ae5a2f4aa";
-const tmdbUrl = "https://api.themoviedb.org/3/search/movie?";
 
 // Fetch data from TMDB API using the title of the selected book
 // TODO fix the fetch url, currently using an example url but need to make it dynamic
 
-function getMovieResults() {
+function getMovieResults(bookTitle) {
+  const tmdbApiKey = `e7f5fe706f136f8b165baa6ae5a2f4aa`;
+  let searchQuery = bookTitle;
+
   fetch(
-    "https://api.themoviedb.org/3/search/movie?api_key=e7f5fe706f136f8b165baa6ae5a2f4aa&language=en-US&query=Jdksdlisdsdsd&page=1&include_adult=false"
+    `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${searchQuery}&page=1&include_adult=false`
   )
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      console.log(data.results);
+
       if (data.results.length < 1) {
         var message = document.createElement("div");
         message.textContent = "No results found.";
-        movieContainer.appendChild(message);
+        movieResultsEl.appendChild(message);
         return;
+      } else {
+        let validateSearch = data.results.filter(function (result) {
+          return result.title == searchQuery;
+        });
+        console.log(validateSearch);
       }
     });
 }
 
-getMovieResults();
-
-// Open Library API endpoint (added an 's' to the http to make it more secure).
-const openLibraryUrl = "https://openlibrary.org/search.json?q=";
+getMovieResults("Holes");
 
 // Added event listener to search button
 searchButton.addEventListener("click", () => {
+  // Open Library API endpoint (added an 's' to the http to make it more secure).
+  const openLibraryUrl = "https://openlibrary.org/search.json?q=";
+
   // Get search term from the input value and store it as a variable
   const searchTerm = searchInput.value;
 
   // Clear previous results so the html has no results displaying
-  resultsContainer.innerHTML = "";
+  bookResultsEl.innerHTML = "";
 
   // Check if search term is empty (make sure the user actually searched for something)
   if (searchTerm === "") {
     const message = document.createElement("div");
     message.textContent = "Please enter a search term.";
-    resultsContainer.appendChild(message);
+    bookResultsEl.appendChild(message);
     return;
   }
 
@@ -58,10 +65,11 @@ searchButton.addEventListener("click", () => {
 
     // This checks to see if the book even exists in the api and then either returns a message or proceeds with the function.
     .then(function (data) {
+      console.log(data);
       if (data.docs.length === 0) {
         var message = document.createElement("div");
         message.textContent = "No results found.";
-        resultsContainer.appendChild(message);
+        bookResultsEl.appendChild(message);
         return;
       }
 
@@ -99,9 +107,10 @@ searchButton.addEventListener("click", () => {
 
         result.addEventListener("click", () => {
           console.log("it worked");
+          getMovieResults();
         });
         result.innerHTML = cardTemplate;
-        resultsContainer.appendChild(result);
+        bookResultsEl.appendChild(result);
         resultsCount++;
       });
     })
@@ -111,6 +120,6 @@ searchButton.addEventListener("click", () => {
       console.error(error);
       const message = document.createElement("div");
       message.textContent = "An error occurred while fetching data.";
-      resultsContainer.appendChild(message);
+      bookResultsEl.appendChild(message);
     });
 });
