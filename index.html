@@ -7,56 +7,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Movie-Book Match</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link href="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
     <header>
+
         <h1>The Other Match.com</h1>
         <p>If you've ever wondered if that book you love has been made into a movie, look no further! Type your favorite
             book in below!</p>
-            <input id="search-bar" type="text" placeholder="Enter a Book">
-            <button id="search-button">Search</button>
-            <div id="results-container"></div>
-            <h2>Search Results</h2>
-                    <h2>First Results</h2>/files-pri/T04F4BPC51P-F04TK637CQY/movie_game_wireframe__1_.jpg
-                    <p>These are the results!!</p>
-                </div>
+        <input id="search-bar" type="text" placeholder="Enter a Book">
+        <button id="search-button">Search</button>
+        <div><span>Previous Searches:</span></div>
+
+
     </header>
 
     <main>
 
-        <div class="container">
-            <div class ="books-container">
-        <section id="Results2" class="movie-card">
-            <h2>Second Results</h2>
+        <section id="books-section">
+            <h2>Book Results</h2>
+            <div id="book-results"></div>
+
         </section>
 
-            <section id="Results3" class="movie-card">
-                <h2>Third Results</h2>
-            </section>
-
-        <section id="Results4" class="movie-card">
-            <h2>Fourth Results</h2>
+        <section id="movies-section">
+            <h2>Movie Results</h2>
+            <div id="movie-results"></div>
         </section>
-            </div>
-        </div>
-
-        <div id="movie-container">
-        </div>
 
     </main>
-    <aside>
-        <h2>Previous Searches</h2>
-        <div>
-            <h3>Search one</h3>
-        </div>
-    </aside>
 
     <footer>
-
     </footer>
-    <script src='/assets/js/script.js'></script>
+
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 // Get references to the html elements
 const searchInput = document.getElementById("search-bar");
 const searchButton = document.getElementById("search-button");
-const resultsContainer = document.getElementById("results-container");
+const bookResultsEl = document.getElementById("book-results");
 const movieContainer = document.getElementById("movie-container");
 
 // TMDB API Key & Endpoint
