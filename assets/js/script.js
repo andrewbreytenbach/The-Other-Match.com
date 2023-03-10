@@ -86,6 +86,11 @@ function displaySearchResults(searchResults) {
   });
 }
 
+function storeSearchTerm(searchTerm) {
+  searchList.push(searchTerm);
+  localStorage.setItem("searchHistory", JSON.stringify(searchList));
+}
+
 // This function executes the book search and displays the results to the HTML
 function searchForBooks() {
   const searchTerm = getSearchTerm();
@@ -99,34 +104,29 @@ function searchForBooks() {
 
   fetchBookData(searchTerm)
     .then(function (data) {
-
-      
       if (data.docs.length === 0) {
         displayMessage("No results found.");
         return;
       }
 
-
       displaySearchResults(data);
+
+      storeSearchTerm(searchTerm);
     })
     .catch((error) => {
       displayMessage(error.message);
     });
-
 }
 
 function displaySearchHistory() {
-  console.log("displaySearchHistory", searchHistory);
   const searchHistoryEl = document.getElementById("search-history");
   searchHistoryEl.innerHTML = "";
-  searchHistory.forEach ((searchTerm) => {
+  searchHistory.forEach((searchTerm) => {
     const searchItem = document.createElement("li");
     searchItem.textContent = searchTerm;
-    console.log("searchItem",searchItem);
     searchItem.addEventListener("click", () => {
       searchInput.value = searchTerm;
       searchButton.click();
-      console.log("displaySearchHistory click");
     });
     searchHistoryEl.appendChild(searchItem);
   });
@@ -137,11 +137,6 @@ const storeSearchHistory = localStorage.getItem("searchHistory");
 if (storeSearchHistory) {
   searchHistory = JSON.parse(storeSearchHistory);
 }
-console.log(searchHistory);
 displaySearchHistory();
-
-function storeSearchTerm() {
-  searchList.push(searchTerm);
-  localStorage.setItem("searchHistory",searchList);
-}
+console.log(searchHistory);
 
