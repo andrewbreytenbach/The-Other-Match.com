@@ -1,25 +1,22 @@
 // Get references to the html elements
-const searchInput = document.querySelector(".is-rounded");
-const searchButton = document.querySelector(".is-dark");
+const searchInput = document.getElementById("search-bar");
+const searchButton = document.getElementById("search-button");
 const bookResultsEl = document.getElementById("book-results");
 let searchList = [];
 
 // Open Library API endpoint (added an 's' to the http to make it more secure).
 const openLibraryUrl = "https://openlibrary.org/search.json?q=";
 
-
 // This code adds an event listener to the search button
 searchButton.addEventListener("click", searchForBooks);
 
 // This function gets the search term from the input field
 function getSearchTerm() {
-  const searchInput = document.getElementById("search-bar");
   return searchInput.value;
 }
 
 // This function clears the previous search results
 function clearSearchResults() {
-  const bookResultsEl = document.getElementById("book-results");
   bookResultsEl.innerHTML = "";
 }
 
@@ -27,7 +24,6 @@ function clearSearchResults() {
 function displayMessage(messageText) {
   const message = document.createElement("div");
   message.textContent = messageText;
-  const bookResultsEl = document.getElementById("book-results");
   bookResultsEl.appendChild(message);
 }
 
@@ -46,7 +42,6 @@ function fetchBookData(searchTerm) {
 
 // This function creates HTML elements for each book in the search results and displays them to the HTML
 function displaySearchResults(searchResults) {
-  const bookResultsEl = document.getElementById("book-results");
   let resultsCount = 0;
   searchResults.docs.forEach((book) => {
     if (resultsCount >= 5) {
@@ -70,9 +65,7 @@ function displaySearchResults(searchResults) {
                     book.title ? book.title : "Unknown"
                   }</p>
                   <p class="subtitle is-6">${
-                    book.author_name
-                      ? book.author_name.join(", ")
-                      : "Unknown"
+                    book.author_name ? book.author_name.join(", ") : "Unknown"
                   }</p>
               </div>
           </div>
@@ -88,6 +81,7 @@ function displaySearchResults(searchResults) {
 
 // This function executes the book search and displays the results to the HTML
 function searchForBooks() {
+  console.log("SearchForBooks function is running");
   const searchTerm = getSearchTerm();
 
   if (searchTerm === "") {
@@ -99,30 +93,26 @@ function searchForBooks() {
 
   fetchBookData(searchTerm)
     .then(function (data) {
-
-      
       if (data.docs.length === 0) {
         displayMessage("No results found.");
         return;
       }
-
 
       displaySearchResults(data);
     })
     .catch((error) => {
       displayMessage(error.message);
     });
-
 }
 
 function displaySearchHistory() {
   console.log("displaySearchHistory", searchHistory);
   const searchHistoryEl = document.getElementById("search-history");
   searchHistoryEl.innerHTML = "";
-  searchHistory.forEach ((searchTerm) => {
+  searchHistory.forEach((searchTerm) => {
     const searchItem = document.createElement("li");
     searchItem.textContent = searchTerm;
-    console.log("searchItem",searchItem);
+    console.log("searchItem", searchItem);
     searchItem.addEventListener("click", () => {
       searchInput.value = searchTerm;
       searchButton.click();
@@ -142,6 +132,5 @@ displaySearchHistory();
 
 function storeSearchTerm() {
   searchList.push(searchTerm);
-  localStorage.setItem("searchHistory",searchList);
+  localStorage.setItem("searchHistory", searchList);
 }
-
