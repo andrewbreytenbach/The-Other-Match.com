@@ -92,10 +92,10 @@ function searchForBooks() {
 
   if (searchTerm === "") {
     displayMessage("Please enter a search term.");
+    clearSearchResults();
     return;
   }
 
-  clearSearchResults();
 
   fetchBookData(searchTerm)
     .then(function (data) {
@@ -105,9 +105,12 @@ function searchForBooks() {
         displayMessage("No results found.");
         return;
       }
+      else {
+          searchList.push(searchTerm);
+          localStorage.setItem("searchHistory",searchList);
+        displaySearchResults(data);
+      }
 
-
-      displaySearchResults(data);
     })
     .catch((error) => {
       displayMessage(error.message);
@@ -139,9 +142,4 @@ if (storeSearchHistory) {
 }
 console.log(searchHistory);
 displaySearchHistory();
-
-function storeSearchTerm() {
-  searchList.push(searchTerm);
-  localStorage.setItem("searchHistory",searchList);
-}
 
