@@ -1,6 +1,6 @@
 // Get references to the html elements
-const searchInput = document.getElementById("search-bar");
-const searchButton = document.getElementById("search-button");
+const searchInput = document.querySelector(".is-rounded");
+const searchButton = document.querySelector(".is-dark");
 const bookResultsEl = document.getElementById("book-results");
 let searchList = [];
 
