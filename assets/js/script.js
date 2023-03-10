@@ -2,6 +2,7 @@
 const searchInput = document.getElementById("search-bar");
 const searchButton = document.getElementById("search-button");
 const bookResultsEl = document.getElementById("book-results");
+let searchList = [];
 
 // Open Library API endpoint (added an 's' to the http to make it more secure).
 const openLibraryUrl = "https://openlibrary.org/search.json?q=";
@@ -30,6 +31,8 @@ searchButton.addEventListener("click", () => {
 
     // This checks to see if the book even exists in the api and then either returns a message or proceeds with the function.
     .then(function (data) {
+
+      
       if (data.docs.length === 0) {
         var message = document.createElement("div");
         message.textContent = "No results found.";
@@ -76,7 +79,10 @@ searchButton.addEventListener("click", () => {
         bookResultsEl.appendChild(result);
         resultsCount++;
       });
+      
     })
+
+    
 
     // This logs an error message if something went wrong and displays it to the html
     .catch((error) => {
@@ -86,3 +92,33 @@ searchButton.addEventListener("click", () => {
       bookResultsEl.appendChild(message);
     });
 });
+
+function displaySearchHistory() {
+  console.log("displaySearchHistory", searchHistory);
+  const searchHistoryEl = document.getElementById("search-history");
+  searchHistoryEl.innerHTML = "";
+  searchHistory.forEach ((searchTerm) => {
+    const searchItem = document.createElement("li");
+    searchItem.textContent = searchTerm;
+    console.log("searchItem",searchItem);
+    searchItem.addEventListener("click", () => {
+      searchInput.value = searchTerm;
+      searchButton.click();
+      console.log("displaySearchHistory click");
+    });
+    searchHistoryEl.appendChild(searchItem);
+  });
+}
+
+var searchHistory = [];
+const storeSearchHistory = localStorage.getItem("searchHistory");
+if (storeSearchHistory) {
+  searchHistory = JSON.parse(storeSearchHistory);
+}
+console.log(searchHistory);
+displaySearchHistory();
+
+function storeSearchTerm() {
+  searchList.push(searchTerm);
+  localStorage.setItem("searchHistory",searchList);
+}
