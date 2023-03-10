@@ -4,8 +4,6 @@ const searchButton = document.getElementById("search-button");
 const bookResultsEl = document.getElementById("book-results");
 const movieResultsEl = document.getElementById("movie-results");
 
-// TMDB API Key & Endpoint
-
 // Fetch data from TMDB API using the title of the selected book
 // TODO fix the fetch url, currently using an example url but need to make it dynamic
 
@@ -20,7 +18,8 @@ function getMovieResults(bookTitle) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data.results);
+      console.log(`Raw movie data:`, data);
+      console.log(`Raw movie results:`, data.results);
 
       if (data.results.length < 1) {
         var message = document.createElement("div");
@@ -31,12 +30,10 @@ function getMovieResults(bookTitle) {
         let validateSearch = data.results.filter(function (result) {
           return result.title == searchQuery;
         });
-        console.log(validateSearch);
+        console.log("Filtered movies results", validateSearch);
       }
     });
 }
-
-getMovieResults("Holes");
 
 // Added event listener to search button
 searchButton.addEventListener("click", () => {
@@ -65,7 +62,7 @@ searchButton.addEventListener("click", () => {
 
     // This checks to see if the book even exists in the api and then either returns a message or proceeds with the function.
     .then(function (data) {
-      console.log(data);
+      console.log(`Raw book data:`, data);
       if (data.docs.length === 0) {
         var message = document.createElement("div");
         message.textContent = "No results found.";
@@ -105,13 +102,14 @@ searchButton.addEventListener("click", () => {
                     </div>
                 `;
 
-        result.addEventListener("click", () => {
-          console.log("it worked");
-          getMovieResults();
-        });
         result.innerHTML = cardTemplate;
         bookResultsEl.appendChild(result);
         resultsCount++;
+      });
+      $(".card").on("click", function (event) {
+        let bookTitle = $(event.target).children().filter(".card").val();
+        console.log(`Click event target:`, bookTitle);
+        getMovieResults();
       });
     })
 
