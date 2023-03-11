@@ -12,6 +12,11 @@ $("#search-history").on("click", ".search-term", getPreviousSearch);
 $("#book-results").on("click", ".result", getMovieResults);
 
 /* ---------------------------------------------------------------------
+RUN ON DOCUMENT LOAD
+*/
+displayPreviousSearches();
+
+/* ---------------------------------------------------------------------
 MOVIE API
 */
 function getMovieResults() {
@@ -21,15 +26,49 @@ function getMovieResults() {
 /* ---------------------------------------------------------------------
 SEARCH HISTORY
 */
-// ? Is it possible to put a condition within a for loop? i.e., i should be less than array.length & less than 5
-// TODO create ul element in this function instead of having it static in HTML (i.e., if there is no search history, do not show "Previous Searches");
-function displayPreviousSearches(array) {
+function createSearchList(array) {
+  $("#previous-searches").append(
+    `<span>Previous Searches:</span>`,
+    `<ul id="search-history"></ul>`
+  );
   for (let i = 0; i < array.length; i++) {
     if (i < 5) {
       $("#search-history").append(`<li class="search-term">${array[i]}</li>`);
     }
   }
 }
+
+function displayPreviousSearches() {
+  let searchHistory = localStorage.getItem("searchHistory");
+  if (searchHistory !== null) {
+    createSearchList(JSON.parse(searchHistory));
+  }
+}
+
+function displaySearchHistory() {
+  const searchHistoryEl = document.getElementById("search-history");
+  searchHistoryEl.innerHTML = "";
+  searchHistory.forEach((searchTerm) => {
+    const searchItem = document.createElement("li");
+    searchItem.textContent = searchTerm;
+    searchItem.addEventListener("click", () => {
+      searchInput.value = searchTerm;
+      searchButton.click();
+    });
+    searchHistoryEl.appendChild(searchItem);
+  });
+}
+
+const storeSearchHistory = localStorage.getItem("searchHistory");
+if (storeSearchHistory) {
+  searchHistory = JSON.parse(storeSearchHistory);
+}
+displaySearchHistory();
+console.log(searchHistory);
+
+/* ---------------------------------------------------------------------
+TBD
+*/
 
 function getPreviousSearch() {
   console.log("getPreviousSearch function has run");
@@ -136,25 +175,3 @@ function searchForBooks() {
       displayMessage(error.message);
     });
 }
-
-function displaySearchHistory() {
-  const searchHistoryEl = document.getElementById("search-history");
-  searchHistoryEl.innerHTML = "";
-  searchHistory.forEach((searchTerm) => {
-    const searchItem = document.createElement("li");
-    searchItem.textContent = searchTerm;
-    searchItem.addEventListener("click", () => {
-      searchInput.value = searchTerm;
-      searchButton.click();
-    });
-    searchHistoryEl.appendChild(searchItem);
-  });
-}
-
-var searchHistory = [];
-const storeSearchHistory = localStorage.getItem("searchHistory");
-if (storeSearchHistory) {
-  searchHistory = JSON.parse(storeSearchHistory);
-}
-displaySearchHistory();
-console.log(searchHistory);
