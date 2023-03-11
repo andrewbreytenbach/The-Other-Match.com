@@ -8,7 +8,7 @@ let searchList = [];
 EVENT LISTENERS
 */
 $("#search-button").click(searchForBooks);
-// $('#search-history').on('click','')
+$("#search-history").on("click", ".search-term", getPreviousSearch);
 $("#book-results").on("click", ".result", getMovieResults);
 
 /* ---------------------------------------------------------------------
@@ -16,6 +16,23 @@ MOVIE API
 */
 function getMovieResults() {
   console.log("getMovieResults function has run");
+}
+
+/* ---------------------------------------------------------------------
+SEARCH HISTORY
+*/
+// ? Is it possible to put a condition within a for loop? i.e., i should be less than array.length & less than 5
+// TODO create ul element in this function instead of having it static in HTML (i.e., if there is no search history, do not show "Previous Searches");
+function displayPreviousSearches(array) {
+  for (let i = 0; i < array.length; i++) {
+    if (i < 5) {
+      $("#search-history").append(`<li class="search-term">${array[i]}</li>`);
+    }
+  }
+}
+
+function getPreviousSearch() {
+  console.log("getPreviousSearch function has run");
 }
 
 // Open Library API endpoint (added an 's' to the http to make it more secure).
