@@ -51,8 +51,9 @@ if (searchHistory.length > 0) {
 }
 
 // TODO write this function
-function getPreviousSearch() {
-  console.log("getPreviousSearch function has run");
+function getPreviousSearch(previousSearch) {
+  $("#search-bar").val(previousSearch.target.innerHTML);
+  $("#search-button").click();
 }
 
 /* OPEN LIBRARY API & BOOK SEARCH----------------------------------------------------
