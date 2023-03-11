@@ -11,18 +11,18 @@ $("#book-results").on("click", ".result", getMovieResults);
 
 /* MOVIE API---------------------------------------------------------------
  */
-function getMovieResults() {
-  console.log("getMovieResults function has run");
-}
-
-const movieResultsEl = document.getElementById("movie-results");
-
 // Fetch data from TMDB API using the title of the selected book
 // TODO fix the fetch url, currently using an example url but need to make it dynamic
 
+function searchForMovies() {
+  const bookTitle = $(this).find(".title").text();
+  getMovieResults(bookTitle);
+}
+
 function getMovieResults(bookTitle) {
+  console.log("getMovieResults function has run");
   const tmdbApiKey = `e7f5fe706f136f8b165baa6ae5a2f4aa`;
-  let searchQuery = bookTitle;
+  let searchQuery = `The Hunger Games`;
 
   fetch(
     `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${searchQuery}&page=1&include_adult=false`
@@ -37,7 +37,7 @@ function getMovieResults(bookTitle) {
       if (data.results.length < 1) {
         var message = document.createElement("div");
         message.textContent = "No results found.";
-        movieResultsEl.appendChild(message);
+        $("#movie-results").append(message);
         return;
       } else {
         let validateSearch = data.results.filter(function (result) {
