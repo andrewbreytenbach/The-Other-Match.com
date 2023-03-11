@@ -12,11 +12,6 @@ $("#search-history").on("click", ".search-term", getPreviousSearch);
 $("#book-results").on("click", ".result", getMovieResults);
 
 /* ---------------------------------------------------------------------
-RUN ON DOCUMENT LOAD
-*/
-displayPreviousSearches();
-
-/* ---------------------------------------------------------------------
 MOVIE API
 */
 function getMovieResults() {
@@ -26,6 +21,17 @@ function getMovieResults() {
 /* ---------------------------------------------------------------------
 SEARCH HISTORY
 */
+// creates array searchHistory from local storage; if value from local storage is null, returns empty array
+let searchHistory = function () {
+  let storedValues = localStorage.getItem("searchHistory");
+  if (storedValues === null) {
+    return [];
+  } else {
+    return JSON.parse(storedValues);
+  }
+};
+
+// create Previous Searches HTML Elements using searchHistory array
 function createSearchList(array) {
   $("#previous-searches").append(
     `<span>Previous Searches:</span>`,
@@ -38,33 +44,11 @@ function createSearchList(array) {
   }
 }
 
-function displayPreviousSearches() {
-  let searchHistory = localStorage.getItem("searchHistory");
-  if (searchHistory !== null) {
-    createSearchList(JSON.parse(searchHistory));
-  }
+// add a new term to searchHistory array and update local storage
+function storeSearchTerm(searchTerm) {
+  let newStoredValue = searchHistory().push(searchTerm);
+  localStorage.setItem("searchHistory", JSON.stringify(newStoredValue));
 }
-
-function displaySearchHistory() {
-  const searchHistoryEl = document.getElementById("search-history");
-  searchHistoryEl.innerHTML = "";
-  searchHistory.forEach((searchTerm) => {
-    const searchItem = document.createElement("li");
-    searchItem.textContent = searchTerm;
-    searchItem.addEventListener("click", () => {
-      searchInput.value = searchTerm;
-      searchButton.click();
-    });
-    searchHistoryEl.appendChild(searchItem);
-  });
-}
-
-const storeSearchHistory = localStorage.getItem("searchHistory");
-if (storeSearchHistory) {
-  searchHistory = JSON.parse(storeSearchHistory);
-}
-displaySearchHistory();
-console.log(searchHistory);
 
 /* ---------------------------------------------------------------------
 TBD
@@ -143,11 +127,6 @@ function displaySearchResults(searchResults) {
   });
 }
 
-function storeSearchTerm(searchTerm) {
-  searchList.push(searchTerm);
-  localStorage.setItem("searchHistory", JSON.stringify(searchList));
-}
-
 // This function executes the book search and displays the results to the HTML
 function searchForBooks() {
   console.log("SearchForBooks function is running");
@@ -174,4 +153,12 @@ function searchForBooks() {
     .catch((error) => {
       displayMessage(error.message);
     });
+}
+
+/* ---------------------------------------------------------------------
+RUN ON DOCUMENT LOAD
+*/
+if (searchHistory().length > 0) {
+  console.log(`This is running`);
+  createSearchList(searchHistory());
 }
