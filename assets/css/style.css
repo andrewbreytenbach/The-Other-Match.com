@@ -1,5 +1,90 @@
-header h1 {
-    text-align: middle;
+ body{
+    font-family: 'Raleway', serif;
+    
+  
+ }
+ 
+ h1 {
+    text-align: center;
     padding: 20px;
+    font-size: 48px;
+    background-image: linear-gradient(to bottom right,rgb(1, 77, 100), rgb(5, 172, 223));
+    font-family: 'Raleway', serif;
+    color:#b4c5c9;
+    font-weight: bolder;
 }
 
+.card{
+    max-width: 50%;
+    position: static;
+    
+    
+    
+}
+
+span{
+    font-size: 16px;
+    padding-top: 50px;
+    margin-left: 275px;
+    margin-top: 30px;
+    
+}
+
+p{
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+ .is-rounded{
+  max-width:40%;
+  margin-top: 20px;
+  display: block;
+  margin: 0 auto;
+    
+    
+
+}
+
+button{
+    margin-top: -40px;
+    margin-right: 350px;
+}
+
+div.columns.is-mobile{
+    justify-content: space-evenly;
+    padding: 30px;
+
+}
+
+#book-title{
+    font-size: 12px;
+    padding-top: 50px;
+    margin-left: -190px;
+}
+
+div.book-column{
+    padding: 20px;
+    flex: flex-wrap;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
+    justify-content: center;
+
+    
+}
+
+div.movie-column p{
+    font-size: 12px;
+    padding-top: 50px;
+    margin-left: -170px;
+}
+
+div.movie-column{
+    display: flex;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bolder;
+    
+}
