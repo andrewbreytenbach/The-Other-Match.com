@@ -42,7 +42,18 @@ function createSearchList(array) {
 // add a new term to front of searchHistory array and update local storage
 function storeSearchTerm(searchTerm) {
   searchHistory.unshift(searchTerm);
+  searchHistory = removeArrayDuplicates(searchHistory);
   localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+}
+
+function removeArrayDuplicates(array) {
+  let uniqueArray = [];
+  for (i = 0; i < array.length; i++) {
+    if (uniqueArray.indexOf(array[i]) === -1) {
+      uniqueArray.push(array[i]);
+    }
+  }
+  return uniqueArray;
 }
 
 // on page load, if searchHistory has values, run createSearchList
@@ -50,7 +61,7 @@ if (searchHistory.length > 0) {
   createSearchList(searchHistory);
 }
 
-// TODO write this function
+// Load a previous search
 function getPreviousSearch(previousSearch) {
   $("#search-bar").val(previousSearch.target.innerHTML);
   $("#search-button").click();
