@@ -22,14 +22,11 @@ function getMovieResults() {
 SEARCH HISTORY
 */
 // creates array searchHistory from local storage; if value from local storage is null, returns empty array
-let searchHistory = function () {
-  let storedValues = localStorage.getItem("searchHistory");
-  if (storedValues === null) {
-    return [];
-  } else {
-    return JSON.parse(storedValues);
-  }
-};
+let searchHistory = [];
+let storedValues = localStorage.getItem("searchHistory");
+if (storedValues !== null) {
+  searchHistory = JSON.parse(storedValues);
+}
 
 // create Previous Searches HTML Elements using searchHistory array
 function createSearchList(array) {
@@ -46,9 +43,11 @@ function createSearchList(array) {
 
 // add a new term to searchHistory array and update local storage
 function storeSearchTerm(searchTerm) {
-  let newStoredValue = searchHistory().push(searchTerm);
-  localStorage.setItem("searchHistory", JSON.stringify(newStoredValue));
+  searchHistory.push(searchTerm);
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 }
+
+storeSearchTerm("bunny");
 
 /* ---------------------------------------------------------------------
 TBD
@@ -158,7 +157,6 @@ function searchForBooks() {
 /* ---------------------------------------------------------------------
 RUN ON DOCUMENT LOAD
 */
-if (searchHistory().length > 0) {
-  console.log(`This is running`);
-  createSearchList(searchHistory());
+if (searchHistory.length > 0) {
+  createSearchList(searchHistory);
 }
