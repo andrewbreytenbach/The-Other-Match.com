@@ -43,11 +43,9 @@ function createSearchList(array) {
 
 // add a new term to searchHistory array and update local storage
 function storeSearchTerm(searchTerm) {
-  searchHistory.push(searchTerm);
+  searchHistory.unshift(searchTerm);
   localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 }
-
-storeSearchTerm("bunny");
 
 /* ---------------------------------------------------------------------
 TBD
