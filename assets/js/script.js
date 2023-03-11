@@ -116,7 +116,6 @@ function displaySearchHistory() {
   const searchHistoryEl = document.getElementById("search-history");
   searchHistoryEl.innerHTML = "";
   searchHistory.forEach((searchTerm) => {
-  searchHistory.forEach((searchTerm) => {
     const searchItem = document.createElement("li");
     searchItem.textContent = searchTerm;
     searchItem.addEventListener("click", () => {
@@ -134,4 +133,3 @@ if (storeSearchHistory) {
 }
 displaySearchHistory();
 console.log(searchHistory);
-
