@@ -144,7 +144,6 @@ function searchForBooks() {
         } else {
           displaySearchResults(data);
           storeSearchTerm(searchTerm);
-          createSearchList(searchHistory);
         }
       })
       .catch((error) => {
