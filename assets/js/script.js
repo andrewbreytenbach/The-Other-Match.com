@@ -28,6 +28,7 @@ if (storedValues !== null) {
 
 // create Previous Searches HTML Elements using searchHistory array
 function createSearchList(array) {
+  $("#previous-searches").empty();
   $("#previous-searches").append(
     `<span>Previous Searches:</span>`,
     `<ul id="search-history"></ul>`
@@ -46,6 +47,7 @@ function storeSearchTerm(searchTerm) {
   localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 }
 
+// Check incoming array for duplicates and only adds them back to outgoing array if value is unique
 function removeArrayDuplicates(array) {
   let uniqueArray = [];
   for (i = 0; i < array.length; i++) {
@@ -142,6 +144,7 @@ function searchForBooks() {
         } else {
           displaySearchResults(data);
           storeSearchTerm(searchTerm);
+          createSearchList(searchHistory);
         }
       })
       .catch((error) => {
