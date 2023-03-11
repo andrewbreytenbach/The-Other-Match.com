@@ -4,11 +4,22 @@ const searchButton = document.getElementById("search-button");
 const bookResultsEl = document.getElementById("book-results");
 let searchList = [];
 
+/* ---------------------------------------------------------------------
+EVENT LISTENERS
+*/
+$("#search-button").click(searchForBooks);
+// $('#search-history').on('click','')
+$("#book-results").on("click", ".result", getMovieResults);
+
+/* ---------------------------------------------------------------------
+MOVIE API
+*/
+function getMovieResults() {
+  console.log("getMovieResults function has run");
+}
+
 // Open Library API endpoint (added an 's' to the http to make it more secure).
 const openLibraryUrl = "https://openlibrary.org/search.json?q=";
-
-// This code adds an event listener to the search button
-searchButton.addEventListener("click", searchForBooks);
 
 // This function gets the search term from the input field
 function getSearchTerm() {
@@ -70,9 +81,6 @@ function displaySearchResults(searchResults) {
               </div>
           </div>
       `;
-    result.addEventListener("click", () => {
-      console.log("it worked");
-    });
     result.innerHTML = cardTemplate;
     bookResultsEl.appendChild(result);
     resultsCount++;
