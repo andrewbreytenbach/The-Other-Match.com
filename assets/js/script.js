@@ -22,6 +22,8 @@ function fetchConfig() {
     })
     .then(function (data) {
       console.log(data);
+      console.log(data.images.base_url);
+      console.log(data.images.poster_size);
     });
 }
 
@@ -47,7 +49,7 @@ function createMovieCard(movie) {
   movieCard.html(`
         <div class="card-image">
             <figure class="image is-4by3">
-                <img src=""https://image.tmdb.org/t/p/original/${
+                <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
                   movie.poster_path
                 }" alt="movie cover image">
             </figure>
