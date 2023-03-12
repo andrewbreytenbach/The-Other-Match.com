@@ -49,7 +49,7 @@ function createMovieCard(movie) {
 
 function searchForMovies() {
   $("#movie-results").html("");
-  const bookTitle = $(this).find(".title").text();
+  const bookTitle = $(this).data("title");
 
   fetchMovieResults(bookTitle).then(function (data) {
     if (data.results.length < 1) {
@@ -158,6 +158,7 @@ function displayBookResults(searchResults) {
 function createBookCard(book) {
   let bookCard = $("<div>");
   bookCard.addClass("card book-result");
+  bookCard.data("title", `${book.title}`);
   bookCard.html(`
         <div class="card-image">
             <figure class="image is-4by3">
