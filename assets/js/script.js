@@ -1,8 +1,3 @@
-// Get references to the html elements
-const searchInput = document.getElementById("search-bar");
-const searchButton = document.getElementById("search-button");
-const bookResultsEl = document.getElementById("book-results");
-
 /* EVENT LISTENERS---------------------------------------------------------
  */
 $("#search-button").click(searchForBooks);
@@ -29,6 +24,10 @@ function fetchMovieResults(bookTitle) {
 }
 
 function createMovieCard(movie) {
+  const movieYear = function () {
+    let array = movie.release_date.split("-");
+    return array[0];
+  };
   let movieCard = $("<div>");
   movieCard.addClass("card movie-result");
   movieCard.html(`
@@ -40,10 +39,11 @@ function createMovieCard(movie) {
             </figure>
         </div>
         <div class="card-content">
-            <p class="title is-4">${movie.original_title}</p>
+            <p class="title is-4">${movie.original_title} (${movieYear()})</p>
             <p class="subtitle is-6">${""}</p>
         </div>
   `);
+  console.log(typeof movie.release_date);
   $("#movie-results").append(movieCard);
 }
 
@@ -142,7 +142,7 @@ function fetchBookData(searchTerm) {
 
 // Create book card for each result (up to 5)
 function displayBookResults(searchResults) {
-  bookResultsEl.innerHTML = "";
+  $("#book-results").html("");
   $("#movie-results").html("");
   const books = searchResults.docs;
 
@@ -185,12 +185,12 @@ function createBookCard(book) {
 function displayMessage(messageText) {
   const message = document.createElement("div");
   message.textContent = messageText;
-  bookResultsEl.appendChild(message);
+  $("#book-results").append(message);
 }
 
 // Execute the book search and displays the results to the HTML
 function searchForBooks() {
-  const searchTerm = searchInput.value;
+  const searchTerm = $("#search-bar").val();
 
   if (searchTerm === "") {
     displayMessage("Please enter a search term.");
