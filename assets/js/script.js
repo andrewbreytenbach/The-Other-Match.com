@@ -53,6 +53,7 @@ function createMovieCard(movie) {
 function searchForMovies() {
   $("#movie-results").html("");
   const bookTitle = $(this).data("metadata").title;
+  const bookYear = $(this).data("metadata").year;
 
   fetchMovieResults(bookTitle).then(function (data) {
     if (data.results.length < 1) {
@@ -62,7 +63,7 @@ function searchForMovies() {
       return;
     } else {
       let validateSearch = data.results.filter(function (result) {
-        return result.title == bookTitle; //  && ${movieYear(result)} > ;
+        return result.title == bookTitle && movieYear(result) > bookYear;
       });
       if (validateSearch.length > 0) {
         validateSearch.forEach((movie) => {
