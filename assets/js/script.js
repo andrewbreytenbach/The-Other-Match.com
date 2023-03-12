@@ -7,45 +7,48 @@ const bookResultsEl = document.getElementById("book-results");
  */
 $("#search-button").click(searchForBooks);
 $("#previous-searches").on("click", ".search-term", getPreviousSearch);
-$("#book-results").on("click", ".result", getMovieResults);
+$("#book-results").on("click", ".book-result", searchForMovies);
 
 /* MOVIE API---------------------------------------------------------------
  */
 // Fetch data from TMDB API using the title of the selected book
 // TODO fix the fetch url, currently using an example url but need to make it dynamic
 
-function searchForMovies() {
-  const bookTitle = $(this).find(".title").text();
-  getMovieResults(bookTitle);
-}
-
-function getMovieResults(bookTitle) {
-  console.log("getMovieResults function has run");
+function fetchMovieResults(bookTitle) {
+  console.log(`movie fetch is running`);
   const tmdbApiKey = `e7f5fe706f136f8b165baa6ae5a2f4aa`;
-  let searchQuery = `The Hunger Games`;
+  const tmdbURL = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${bookTitle}&page=1&include_adult=false`;
 
-  fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${searchQuery}&page=1&include_adult=false`
-  )
+  return fetch(tmdbURL)
     .then(function (response) {
       return response.json();
     })
-    .then(function (data) {
-      console.log(`Raw movie data:`, data);
-      console.log(`Raw movie results:`, data.results);
-
-      if (data.results.length < 1) {
-        var message = document.createElement("div");
-        message.textContent = "No results found.";
-        $("#movie-results").append(message);
-        return;
-      } else {
-        let validateSearch = data.results.filter(function (result) {
-          return result.title == searchQuery;
-        });
-        console.log("Filtered movies results", validateSearch);
-      }
+    .catch((error) => {
+      console.error(error);
+      throw new Error("An error occurred while fetching data.");
     });
+  // .then(function (data) {
+  //   console.log(`Raw movie data:`, data);
+  //   console.log(`Raw movie results:`, data.results);
+}
+
+function searchForMovies() {
+  console.log(`searchForMovies is running`);
+  const bookTitle = $(this).find(".title").text();
+
+  fetchMovieResults(bookTitle).then(function (data) {
+    if (data.results.length < 1) {
+      var message = document.createElement("div");
+      message.textContent = "No results found.";
+      $("#movie-results").append(message);
+      return;
+    } else {
+      let validateSearch = data.results.filter(function (result) {
+        return result.title == bookTitle;
+      });
+      console.log("Filtered movies results", validateSearch);
+    }
+  });
 }
 
 /* SEARCH HISTORY-----------------------------------------------------
@@ -106,7 +109,7 @@ function getPreviousSearch(previousSearch) {
 
 // Fetch data from the Open Library API using the search term or logs an error if an error is generated
 function fetchBookData(searchTerm) {
-  const openLibraryUrl = `https://openlibrary.org/search.json?q=${searchTerm}`;
+  const openLibraryUrl = `https://openlibrary.org/search.json?title=${searchTerm}`;
   return fetch(openLibraryUrl)
     .then(function (response) {
       return response.json();
@@ -121,8 +124,9 @@ function fetchBookData(searchTerm) {
 function displaySearchResults(searchResults) {
   bookResultsEl.innerHTML = "";
   const books = searchResults.docs;
+
   for (let i = 0; i < books.length; i++) {
-    if (i < 5) {
+    if ($(".book-result").length < 5) {
       createBookCard(books[i]);
     }
   }
@@ -131,8 +135,7 @@ function displaySearchResults(searchResults) {
 // Create HTML element for a single book result and append to #book-results in HTML
 function createBookCard(book) {
   const bookCard = `
-  <div class="result">
-    <div class="card">
+    <div class="card book-result">
         <div class="card-image">
             <figure class="image is-4by3">
                 <img src="${
@@ -149,7 +152,6 @@ function createBookCard(book) {
             }</p>
         </div>
     </div>
-  </div>
   `;
   $("#book-results").append(bookCard);
 }
