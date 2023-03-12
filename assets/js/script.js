@@ -23,11 +23,12 @@ function fetchMovieResults(bookTitle) {
     });
 }
 
+const movieYear = function (movie) {
+  let array = movie.release_date.split("-");
+  return array[0];
+};
+
 function createMovieCard(movie) {
-  const movieYear = function () {
-    let array = movie.release_date.split("-");
-    return array[0];
-  };
   let movieCard = $("<div>");
   movieCard.addClass("card movie-result");
   movieCard.html(`
@@ -39,7 +40,9 @@ function createMovieCard(movie) {
             </figure>
         </div>
         <div class="card-content">
-            <p class="title is-4">${movie.original_title} (${movieYear()})</p>
+            <p class="title is-4">${movie.original_title} (${movieYear(
+    movie
+  )})</p>
             <p class="subtitle is-6">${""}</p>
         </div>
   `);
@@ -59,7 +62,7 @@ function searchForMovies() {
       return;
     } else {
       let validateSearch = data.results.filter(function (result) {
-        return result.title == bookTitle;
+        return result.title == bookTitle && // ${movieYear(result)} > ;
       });
       if (validateSearch.length > 0) {
         validateSearch.forEach((movie) => {
