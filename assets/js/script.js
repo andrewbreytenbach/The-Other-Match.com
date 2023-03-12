@@ -148,6 +148,7 @@ function displayBookResults(searchResults) {
 
   for (let i = 0; i < books.length; i++) {
     if ($(".book-result").length < 5) {
+      console.log(books[i]);
       createBookCard(books[i]);
     }
   }
@@ -168,7 +169,9 @@ function createBookCard(book) {
             </figure>
         </div>
         <div class="card-content">
-            <p class="title is-4">${book.title ? book.title : "Unknown"}</p>
+            <p class="title is-4">${book.title ? book.title : "Unknown"} (${
+    book.first_publish_year
+  })</p>
             <p class="subtitle is-6">${
               book.author_name ? book.author_name.join(", ") : "Unknown"
             }</p>
