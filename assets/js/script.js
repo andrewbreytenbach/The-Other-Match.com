@@ -27,13 +27,29 @@ function fetchMovieResults(bookTitle) {
       console.error(error);
       throw new Error("An error occurred while fetching data.");
     });
-  // .then(function (data) {
-  //   console.log(`Raw movie data:`, data);
-  //   console.log(`Raw movie results:`, data.results);
+}
+
+function createMovieCard(movie) {
+  let movieCard = $("<div>");
+  movieCard.addClass("card movie-result");
+  movieCard.html(`
+        <div class="card-image">
+            <figure class="image is-4by3">
+                <img src=""https://image.tmdb.org/t/p/original/${
+                  movie.poster_path
+                }" alt="movie cover image">
+            </figure>
+        </div>
+        <div class="card-content">
+            <p class="title is-4">${movie.original_title}</p>
+            <p class="subtitle is-6">${""}</p>
+        </div>
+  `);
+  $("#movie-results").append(movieCard);
 }
 
 function searchForMovies() {
-  console.log(`searchForMovies is running`);
+  $("#movie-results").html("");
   const bookTitle = $(this).find(".title").text();
 
   fetchMovieResults(bookTitle).then(function (data) {
@@ -46,7 +62,12 @@ function searchForMovies() {
       let validateSearch = data.results.filter(function (result) {
         return result.title == bookTitle;
       });
-      console.log("Filtered movies results", validateSearch);
+      if (validateSearch.length > 0) {
+        validateSearch.forEach((movie) => {
+          console.log(validateSearch);
+          createMovieCard(movie);
+        });
+      }
     }
   });
 }
@@ -121,8 +142,9 @@ function fetchBookData(searchTerm) {
 }
 
 // Create book card for each result (up to 5)
-function displaySearchResults(searchResults) {
+function displayBookResults(searchResults) {
   bookResultsEl.innerHTML = "";
+  $("#movie-results").html("");
   const books = searchResults.docs;
 
   for (let i = 0; i < books.length; i++) {
@@ -134,8 +156,9 @@ function displaySearchResults(searchResults) {
 
 // Create HTML element for a single book result and append to #book-results in HTML
 function createBookCard(book) {
-  const bookCard = `
-    <div class="card book-result">
+  let bookCard = $("<div>");
+  bookCard.addClass("card book-result");
+  bookCard.html(`
         <div class="card-image">
             <figure class="image is-4by3">
                 <img src="${
@@ -151,8 +174,7 @@ function createBookCard(book) {
               book.author_name ? book.author_name.join(", ") : "Unknown"
             }</p>
         </div>
-    </div>
-  `;
+  `);
   $("#book-results").append(bookCard);
 }
 
@@ -176,7 +198,7 @@ function searchForBooks() {
         if (data.docs.length === 0) {
           displayMessage("No results found.");
         } else {
-          displaySearchResults(data);
+          displayBookResults(data);
           storeSearchTerm(searchTerm);
         }
       })
