@@ -14,21 +14,6 @@ $("#book-results").on("click", ".book-result", searchForMovies);
 // Fetch data from TMDB API using the title of the selected book
 const tmdbApiKey = `e7f5fe706f136f8b165baa6ae5a2f4aa`;
 
-function fetchConfig() {
-  const tmdbConfigUrl = `https://api.themoviedb.org/3/configuration?api_key=${tmdbApiKey}`;
-  fetch(tmdbConfigUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      console.log(data.images.base_url);
-      console.log(data.images.poster_size);
-    });
-}
-
-fetchConfig();
-
 function fetchMovieResults(bookTitle) {
   console.log(`movie fetch is running`);
   const tmdbSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${bookTitle}&page=1&include_adult=false`;
