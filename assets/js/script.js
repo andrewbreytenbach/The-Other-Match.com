@@ -52,7 +52,7 @@ function createMovieCard(movie) {
 
 function searchForMovies() {
   $("#movie-results").html("");
-  const bookTitle = $(this).data("title");
+  const bookTitle = $(this).data("metadata").title;
 
   fetchMovieResults(bookTitle).then(function (data) {
     if (data.results.length < 1) {
@@ -62,7 +62,7 @@ function searchForMovies() {
       return;
     } else {
       let validateSearch = data.results.filter(function (result) {
-        return result.title == bookTitle && // ${movieYear(result)} > ;
+        return result.title == bookTitle; //  && ${movieYear(result)} > ;
       });
       if (validateSearch.length > 0) {
         validateSearch.forEach((movie) => {
@@ -161,7 +161,10 @@ function displayBookResults(searchResults) {
 function createBookCard(book) {
   let bookCard = $("<div>");
   bookCard.addClass("card book-result");
-  bookCard.data("title", `${book.title}`);
+  bookCard.data("metadata", {
+    title: `${book.title}`,
+    year: `${book.first_publish_year}`,
+  });
   bookCard.html(`
         <div class="card-image">
             <figure class="image is-4by3">
@@ -182,6 +185,7 @@ function createBookCard(book) {
         </div>
   `);
   $("#book-results").append(bookCard);
+  console.log(bookCard.data());
 }
 
 // This function creates a message and displays it in the search results
