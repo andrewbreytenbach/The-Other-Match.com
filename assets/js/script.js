@@ -12,14 +12,26 @@ $("#book-results").on("click", ".book-result", searchForMovies);
 /* MOVIE API---------------------------------------------------------------
  */
 // Fetch data from TMDB API using the title of the selected book
-// TODO fix the fetch url, currently using an example url but need to make it dynamic
+const tmdbApiKey = `e7f5fe706f136f8b165baa6ae5a2f4aa`;
+
+function fetchConfig() {
+  const tmdbConfigUrl = `https://api.themoviedb.org/3/configuration?api_key=${tmdbApiKey}`;
+  fetch(tmdbConfigUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    });
+}
+
+fetchConfig();
 
 function fetchMovieResults(bookTitle) {
   console.log(`movie fetch is running`);
-  const tmdbApiKey = `e7f5fe706f136f8b165baa6ae5a2f4aa`;
-  const tmdbURL = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${bookTitle}&page=1&include_adult=false`;
+  const tmdbSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${bookTitle}&page=1&include_adult=false`;
 
-  return fetch(tmdbURL)
+  return fetch(tmdbSearchUrl)
     .then(function (response) {
       return response.json();
     })
