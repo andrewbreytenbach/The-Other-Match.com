@@ -1,8 +1,3 @@
-// Get references to the html elements
-const searchInput = document.getElementById("search-bar");
-const searchButton = document.getElementById("search-button");
-const bookResultsEl = document.getElementById("book-results");
-
 /* EVENT LISTENERS---------------------------------------------------------
  */
 $("#search-button").click(searchForBooks);
@@ -12,14 +7,12 @@ $("#book-results").on("click", ".book-result", searchForMovies);
 /* MOVIE API---------------------------------------------------------------
  */
 // Fetch data from TMDB API using the title of the selected book
-// TODO fix the fetch url, currently using an example url but need to make it dynamic
+const tmdbApiKey = `e7f5fe706f136f8b165baa6ae5a2f4aa`;
 
 function fetchMovieResults(bookTitle) {
-  console.log(`movie fetch is running`);
-  const tmdbApiKey = `e7f5fe706f136f8b165baa6ae5a2f4aa`;
-  const tmdbURL = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${bookTitle}&page=1&include_adult=false`;
+  const tmdbSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${bookTitle}&page=1&include_adult=false`;
 
-  return fetch(tmdbURL)
+  return fetch(tmdbSearchUrl)
     .then(function (response) {
       return response.json();
     })
@@ -29,19 +22,26 @@ function fetchMovieResults(bookTitle) {
     });
 }
 
+const movieYear = function (movie) {
+  let array = movie.release_date.split("-");
+  return array[0];
+};
+
 function createMovieCard(movie) {
   let movieCard = $("<div>");
   movieCard.addClass("card movie-result");
   movieCard.html(`
         <div class="card-image">
             <figure class="image is-4by3">
-                <img src=""https://image.tmdb.org/t/p/original/${
+                <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
                   movie.poster_path
                 }" alt="movie cover image">
             </figure>
         </div>
         <div class="card-content">
-            <p class="title is-4">${movie.original_title}</p>
+            <p class="title is-4">${movie.original_title} (${movieYear(
+    movie
+  )})</p>
             <p class="subtitle is-6">${""}</p>
         </div>
   `);
@@ -50,7 +50,8 @@ function createMovieCard(movie) {
 
 function searchForMovies() {
   $("#movie-results").html("");
-  const bookTitle = $(this).find(".title").text();
+  const bookTitle = $(this).data("metadata").title;
+  const bookYear = $(this).data("metadata").year;
 
   fetchMovieResults(bookTitle).then(function (data) {
     if (data.results.length < 1) {
@@ -59,14 +60,19 @@ function searchForMovies() {
       $("#movie-results").append(message);
       return;
     } else {
-      let validateSearch = data.results.filter(function (result) {
-        return result.title == bookTitle;
+      let exactMatch = data.results.filter(function (result) {
+        return result.title == bookTitle && movieYear(result) > bookYear;
       });
-      if (validateSearch.length > 0) {
-        validateSearch.forEach((movie) => {
-          console.log(validateSearch);
+      if (exactMatch.length > 0) {
+        exactMatch.forEach((movie) => {
           createMovieCard(movie);
         });
+      } else {
+        for (let i = 0; i < data.results.length; i++) {
+          if (i < 5) {
+            createMovieCard(data.results[i]);
+          }
+        }
       }
     }
   });
@@ -143,21 +149,37 @@ function fetchBookData(searchTerm) {
 
 // Create book card for each result (up to 5)
 function displayBookResults(searchResults) {
-  bookResultsEl.innerHTML = "";
+  $("#book-results").html("");
   $("#movie-results").html("");
   const books = searchResults.docs;
+  let resultAuthors = [];
 
   for (let i = 0; i < books.length; i++) {
-    if ($(".book-result").length < 5) {
+    if (
+      $(".book-result").length < 5 &&
+      books[i].readinglog_count > 100 &&
+      !resultAuthors.includes(books[i].author_name[0])
+    ) {
+      resultAuthors.push(books[i].author_name[0]);
+      console.log(resultAuthors);
       createBookCard(books[i]);
     }
+  }
+  if ($(".book-result").length === 1) {
+    $(".book-result").click();
   }
 }
 
 // Create HTML element for a single book result and append to #book-results in HTML
 function createBookCard(book) {
+  console.log(book);
   let bookCard = $("<div>");
   bookCard.addClass("card book-result");
+  bookCard.data("metadata", {
+    title: `${book.title}`,
+    year: `${book.first_publish_year}`,
+    author: `${book.author_name}`,
+  });
   bookCard.html(`
         <div class="card-image">
             <figure class="image is-4by3">
@@ -169,7 +191,9 @@ function createBookCard(book) {
             </figure>
         </div>
         <div class="card-content">
-            <p class="title is-4">${book.title ? book.title : "Unknown"}</p>
+            <p class="title is-4">${book.title ? book.title : "Unknown"} (${
+    book.first_publish_year
+  })</p>
             <p class="subtitle is-6">${
               book.author_name ? book.author_name.join(", ") : "Unknown"
             }</p>
@@ -182,12 +206,12 @@ function createBookCard(book) {
 function displayMessage(messageText) {
   const message = document.createElement("div");
   message.textContent = messageText;
-  bookResultsEl.appendChild(message);
+  $("#book-results").append(message);
 }
 
 // Execute the book search and displays the results to the HTML
 function searchForBooks() {
-  const searchTerm = searchInput.value;
+  const searchTerm = $("#search-bar").val();
 
   if (searchTerm === "") {
     displayMessage("Please enter a search term.");
