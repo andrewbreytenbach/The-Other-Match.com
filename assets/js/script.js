@@ -1,6 +1,6 @@
 // Get references to the html elements
-const searchInput = document.querySelector(".is-rounded");
-const searchButton = document.querySelector(".is-dark");
+const searchInput = document.getElementById("search-bar");
+const searchButton = document.getElementById("search-button");
 const bookResultsEl = document.getElementById("book-results");
 
 // Open Library API endpoint (added an 's' to the http to make it more secure).
@@ -57,7 +57,7 @@ searchButton.addEventListener("click", () => {
                             </figure>
                         </div>
                         <div class="card-content">
-                            <p class="title is-4">${
+                            <p class="title is-5">${
                               book.title ? book.title : "Unknown"
                             }</p>
                             <p class="subtitle is-6">${

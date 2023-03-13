@@ -1,7 +1,9 @@
  body{
-    font-family: 'Raleway', serif;
-    background-image: url(/assets/images/white-bricks-wall-texture.jpg);
-    background: cover;
+    font-family: 'Kanit', serif;
+    
+    
+    
+
  }
  
  h1 {
@@ -9,29 +11,26 @@
     padding: 20px;
     font-size: 48px;
     background-image: linear-gradient(to bottom right,rgb(2, 63, 81), rgb(8, 191, 247));
-    font-family: 'Raleway', serif;
+    font-family: 'Kanit', serif;
+    font-weight: 800;
     color:#b4c5c9;
-    font-weight:900;
-   
-}
-
+ }
+/* book and movie cards */
 .card{
     max-width: 45%;
-    display: flex;
-    flex-wrap: wrap;
     justify-content: space-evenly;
-    margin-left: 200px;
+    margin-left: 156px;
 
 }
-
-span#previous-searches{
-    font-size: 16px;
-    padding-top: 10px;
+/* previous searches */
+span{
+    font-size: 20px;
+    padding-top: 200px;
     margin-left: 450px;
-    margin-top: 10px;
+    margin-top: 0px;
     
 }
-
+/* paragraph under header */
 p{
     text-align: center;
     padding: 24px;
@@ -41,10 +40,9 @@ p{
 }
 
  #search-bar{
-  max-width:45%;
+  max-width:100%;
   margin-top: 20px;
-  display: block;
-  margin: 0 auto;
+  margin-left: 400px;
   padding-bottom: 7px;
     
     
@@ -52,13 +50,14 @@ p{
 }
 
 #search-button{
-    margin-top: -40px;
-    margin-right: 325px;
+    margin-top: 20px;
+    margin-left: 402px;
     display: block;
+    float: right;
     
     
 }
-
+/* container for both book and movie columns */
 div.columns.is-mobile{
     justify-content: space-between;
     padding: 30px;
@@ -80,8 +79,9 @@ div.book-column{
     font-size: 22px;
     font-weight: bolder;
     justify-content: center;
-    margin-left: 190px;
+    margin-left: 10px;
     color: rgb(163, 89, 4);
+    font-weight: 800px;
  
 }
 
@@ -97,7 +97,6 @@ div.movie-column p{
 }
 
 div.movie-column{
-    display: flex;
     padding: 20px;
     font-size: 22px;
     font-weight: bolder;
