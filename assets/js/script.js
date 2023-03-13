@@ -60,13 +60,19 @@ function searchForMovies() {
       $("#movie-results").append(message);
       return;
     } else {
-      let validateSearch = data.results.filter(function (result) {
+      let exactMatch = data.results.filter(function (result) {
         return result.title == bookTitle && movieYear(result) > bookYear;
       });
-      if (validateSearch.length > 0) {
-        validateSearch.forEach((movie) => {
+      if (exactMatch.length > 0) {
+        exactMatch.forEach((movie) => {
           createMovieCard(movie);
         });
+      } else {
+        for (let i = 0; i < data.results.length; i++) {
+          if (i < 5) {
+            createMovieCard(data.results[i]);
+          }
+        }
       }
     }
   });
