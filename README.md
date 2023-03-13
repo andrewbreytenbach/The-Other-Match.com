@@ -73,7 +73,7 @@ This repo is distributed under an MIT license. Click the MIT file in the reposio
 * [https://github.com/graysont3] (Taja Grayson)
 * [https://github.com/taylor-green] (Taylor Green)
 
-Project Link: [https://andrewbreytenbach.github.io/movie-book-match/](The Other Match.com)
+Project Link: [https://andrewbreytenbach.github.io/movie-book-match/] (The Other Match.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
