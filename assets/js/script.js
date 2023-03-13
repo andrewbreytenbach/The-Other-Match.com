@@ -57,7 +57,7 @@ searchButton.addEventListener("click", () => {
                             </figure>
                         </div>
                         <div class="card-content">
-                            <p class="title is-5">${
+                            <p class="title is-6">${
                               book.title ? book.title : "Unknown"
                             }</p>
                             <p class="subtitle is-6">${
