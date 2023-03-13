@@ -146,9 +146,16 @@ function displayBookResults(searchResults) {
   $("#book-results").html("");
   $("#movie-results").html("");
   const books = searchResults.docs;
+  let resultAuthors = [];
 
   for (let i = 0; i < books.length; i++) {
-    if ($(".book-result").length < 5 && books[i].readinglog_count > 100) {
+    if (
+      $(".book-result").length < 5 &&
+      books[i].readinglog_count > 100 &&
+      !resultAuthors.includes(books[i].author_name[0])
+    ) {
+      resultAuthors.push(books[i].author_name[0]);
+      console.log(resultAuthors);
       createBookCard(books[i]);
     }
   }
