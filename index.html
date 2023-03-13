@@ -8,7 +8,7 @@
     <title>Movie-Book Match</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
@@ -17,34 +17,45 @@
     <header>
 
         <h1>The Other Match.com</h1>
-        <p>If you've ever wondered if that book you love has been made into a movie, look no further! Type your favorite
-            book in below!</p>
-        <input class="input is-rounded" type="text" placeholder="Enter a book" id="search-bar">
-        <button class="button is-dark is-pulled-right is-inverted" id="search-button">Search</button>
-
-        <div id="previous-searches">
+        <p class="opener">If you've ever wondered if that book you love has been made into a movie, look no further! Type your favorite
+            book in below!</p
+        <div class="field has-addons">
+            <div class="control">
+                <input id="search-bar" class="input" type="text" placeholder="Enter a book">
+            </div>
+            <div class="control">
+                <a id="search-button" class="button is-info">
+                    Search
+                </a>
+            </div>
         </div>
-
+        
+        </button>
 
     </header>
 
     <main>
-        <div class="columns is-mobile">
-                <div class="book-column">Book Results
-                    <p>Select a book to see if there is a movie</p>
-                    <section id="books-section">
-                        <div id="book-results"></div>
-                    </section>
-                </div>
+        <div><span>Previous Searches:</span></div>
 
-        
-                <div class="movie-column">Movie Results
-                    <p>Here are the movies we've found</p>
-                    <section id="movies-section">
-                        <div id="movie-results"></div>
-                    </section>
-                </div>
+        <div class="columns is-mobile">
+            <div class="book-column">Book Results
+                <p class ="book-p">Select a book to see if there is a movie</p>
+                <section id="books-section">
+                    <div id="book-results"></div>
+                </section>
             </div>
+
+
+            <div class="movie-column">Movie Results
+                <p class="movie-p">Here are the movies we've found</p>
+                <section id="movies-section">
+                    <div id="movie-results"></div>
+                </section>
+            </div>
+
+        </div>
+        </div>
+
     </main>
 
     <footer>

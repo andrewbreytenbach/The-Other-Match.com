@@ -1,3 +1,4 @@
+
 /* EVENT LISTENERS---------------------------------------------------------
  */
 $("#search-button").click(searchForBooks);
@@ -26,6 +27,7 @@ const movieYear = function (movie) {
   let array = movie.release_date.split("-");
   return array[0];
 };
+
 
 function createMovieCard(movie) {
   let movieCard = $("<div>");
