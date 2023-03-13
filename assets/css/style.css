@@ -24,7 +24,15 @@
      height: 200px;
      display: inline;
 
- }
+
+span{
+    font-size: 16px;
+    padding-top: 50px;
+    margin-left: 275px;
+    margin-top: 30px;
+    align-items: flex-start;
+    
+}
 
  /* previous searches */
  span {
@@ -117,4 +125,17 @@
  div.result{
     display: inline;
     
- }
+
+}
+
+#previous-searches{
+display: flex;
+align-items: flex-start;
+padding: 10px;
+}
+
+#previous-searches ul{
+    display: flex;
+    justify-content: space-between;
+}
+
