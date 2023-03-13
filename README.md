@@ -67,11 +67,11 @@ This repo is distributed under an MIT license. Click the MIT file in the reposio
 
 ## Contact
 
-[https://github.com/andrewbreytenbach] (Andrew Breytenbach) 
-[https://github.com/eileenmh] (Eileen Harvey)
-[https://github.com/DLEllis07] (Damar Ellis)
-[https://github.com/graysont3] (Taja Grayson)
-[https://github.com/taylor-green] (Taylor Green)
+* [https://github.com/andrewbreytenbach] (Andrew Breytenbach) 
+* [https://github.com/eileenmh] (Eileen Harvey)
+* [https://github.com/DLEllis07] (Damar Ellis)
+* [https://github.com/graysont3] (Taja Grayson)
+* [https://github.com/taylor-green] (Taylor Green)
 
 Project Link: [https://andrewbreytenbach.github.io/movie-book-match/](The Other Match.com)
 
