@@ -27,6 +27,7 @@ span{
     padding-top: 50px;
     margin-left: 275px;
     margin-top: 30px;
+    align-items: flex-start;
     
 }
 
@@ -87,4 +88,15 @@ div.movie-column{
     font-size: 20px;
     font-weight: bolder;
     
+}
+
+#previous-searches{
+display: flex;
+align-items: flex-start;
+padding: 10px;
+}
+
+#previous-searches ul{
+    display: flex;
+    justify-content: space-between;
 }
