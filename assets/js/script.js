@@ -10,7 +10,6 @@ $("#book-results").on("click", ".book-result", searchForMovies);
 const tmdbApiKey = `e7f5fe706f136f8b165baa6ae5a2f4aa`;
 
 function fetchMovieResults(bookTitle) {
-  console.log(`movie fetch is running`);
   const tmdbSearchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${bookTitle}&page=1&include_adult=false`;
 
   return fetch(tmdbSearchUrl)
@@ -46,7 +45,6 @@ function createMovieCard(movie) {
             <p class="subtitle is-6">${""}</p>
         </div>
   `);
-  console.log(typeof movie.release_date);
   $("#movie-results").append(movieCard);
 }
 
@@ -67,7 +65,6 @@ function searchForMovies() {
       });
       if (validateSearch.length > 0) {
         validateSearch.forEach((movie) => {
-          console.log(validateSearch);
           createMovieCard(movie);
         });
       }
@@ -151,20 +148,24 @@ function displayBookResults(searchResults) {
   const books = searchResults.docs;
 
   for (let i = 0; i < books.length; i++) {
-    if ($(".book-result").length < 5) {
-      console.log(books[i]);
+    if ($(".book-result").length < 5 && books[i].readinglog_count > 100) {
       createBookCard(books[i]);
     }
+  }
+  if ($(".book-result").length === 1) {
+    $(".book-result").click();
   }
 }
 
 // Create HTML element for a single book result and append to #book-results in HTML
 function createBookCard(book) {
+  console.log(book);
   let bookCard = $("<div>");
   bookCard.addClass("card book-result");
   bookCard.data("metadata", {
     title: `${book.title}`,
     year: `${book.first_publish_year}`,
+    author: `${book.author_name}`,
   });
   bookCard.html(`
         <div class="card-image">
@@ -186,7 +187,6 @@ function createBookCard(book) {
         </div>
   `);
   $("#book-results").append(bookCard);
-  console.log(bookCard.data());
 }
 
 // This function creates a message and displays it in the search results
