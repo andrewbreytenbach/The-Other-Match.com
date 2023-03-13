@@ -2,18 +2,74 @@
 const searchInput = document.getElementById("search-bar");
 const searchButton = document.getElementById("search-button");
 const bookResultsEl = document.getElementById("book-results");
-let searchList = [];
 
 /* EVENT LISTENERS---------------------------------------------------------
  */
 $("#search-button").click(searchForBooks);
 $("#previous-searches").on("click", ".search-term", getPreviousSearch);
-$("#book-results").on("click", ".result", getMovieResults);
+$("#book-results").on("click", ".book-result", searchForMovies);
 
 /* MOVIE API---------------------------------------------------------------
  */
-function getMovieResults() {
-  console.log("getMovieResults function has run");
+// Fetch data from TMDB API using the title of the selected book
+// TODO fix the fetch url, currently using an example url but need to make it dynamic
+
+function fetchMovieResults(bookTitle) {
+  console.log(`movie fetch is running`);
+  const tmdbApiKey = `e7f5fe706f136f8b165baa6ae5a2f4aa`;
+  const tmdbURL = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&language=en-US&query=${bookTitle}&page=1&include_adult=false`;
+
+  return fetch(tmdbURL)
+    .then(function (response) {
+      return response.json();
+    })
+    .catch((error) => {
+      console.error(error);
+      throw new Error("An error occurred while fetching data.");
+    });
+}
+
+function createMovieCard(movie) {
+  let movieCard = $("<div>");
+  movieCard.addClass("card movie-result");
+  movieCard.html(`
+        <div class="card-image">
+            <figure class="image is-4by3">
+                <img src=""https://image.tmdb.org/t/p/original/${
+                  movie.poster_path
+                }" alt="movie cover image">
+            </figure>
+        </div>
+        <div class="card-content">
+            <p class="title is-4">${movie.original_title}</p>
+            <p class="subtitle is-6">${""}</p>
+        </div>
+  `);
+  $("#movie-results").append(movieCard);
+}
+
+function searchForMovies() {
+  $("#movie-results").html("");
+  const bookTitle = $(this).find(".title").text();
+
+  fetchMovieResults(bookTitle).then(function (data) {
+    if (data.results.length < 1) {
+      var message = document.createElement("div");
+      message.textContent = "No results found.";
+      $("#movie-results").append(message);
+      return;
+    } else {
+      let validateSearch = data.results.filter(function (result) {
+        return result.title == bookTitle;
+      });
+      if (validateSearch.length > 0) {
+        validateSearch.forEach((movie) => {
+          console.log(validateSearch);
+          createMovieCard(movie);
+        });
+      }
+    }
+  });
 }
 
 /* SEARCH HISTORY-----------------------------------------------------
@@ -74,7 +130,7 @@ function getPreviousSearch(previousSearch) {
 
 // Fetch data from the Open Library API using the search term or logs an error if an error is generated
 function fetchBookData(searchTerm) {
-  const openLibraryUrl = `https://openlibrary.org/search.json?q=${searchTerm}`;
+  const openLibraryUrl = `https://openlibrary.org/search.json?title=${searchTerm}`;
   return fetch(openLibraryUrl)
     .then(function (response) {
       return response.json();
@@ -86,11 +142,13 @@ function fetchBookData(searchTerm) {
 }
 
 // Create book card for each result (up to 5)
-function displaySearchResults(searchResults) {
+function displayBookResults(searchResults) {
   bookResultsEl.innerHTML = "";
+  $("#movie-results").html("");
   const books = searchResults.docs;
+
   for (let i = 0; i < books.length; i++) {
-    if (i < 5) {
+    if ($(".book-result").length < 5) {
       createBookCard(books[i]);
     }
   }
@@ -98,9 +156,9 @@ function displaySearchResults(searchResults) {
 
 // Create HTML element for a single book result and append to #book-results in HTML
 function createBookCard(book) {
-  const bookCard = `
-  <div class="result">
-    <div class="card">
+  let bookCard = $("<div>");
+  bookCard.addClass("card book-result");
+  bookCard.html(`
         <div class="card-image">
             <figure class="image is-4by3">
                 <img src="${
@@ -116,9 +174,7 @@ function createBookCard(book) {
               book.author_name ? book.author_name.join(", ") : "Unknown"
             }</p>
         </div>
-    </div>
-  </div>
-  `;
+  `);
   $("#book-results").append(bookCard);
 }
 
@@ -142,7 +198,7 @@ function searchForBooks() {
         if (data.docs.length === 0) {
           displayMessage("No results found.");
         } else {
-          displaySearchResults(data);
+          displayBookResults(data);
           storeSearchTerm(searchTerm);
         }
       })
