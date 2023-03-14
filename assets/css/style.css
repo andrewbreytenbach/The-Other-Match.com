@@ -13,8 +13,6 @@
      color: #b4c5c9;
  }
 
-   
-
  /* paragraph under header */
  .opener {
      text-align: center;
@@ -35,20 +33,13 @@
      font-weight: bolder;
      margin-left: 50px;
      color: rgb(203, 110, 3);
-     
-
  }
-    
-
-  
 
 #search-container{
 display: flex;
 justify-content: center;
 margin: auto;
 padding: 10px;
-
-
 }
 
 #previous-searches ul{
@@ -65,10 +56,6 @@ padding: 10px;
 content: ",";
 }
 
- 
-
-
 .search-term:hover{
     cursor: pointer;
 }
-
