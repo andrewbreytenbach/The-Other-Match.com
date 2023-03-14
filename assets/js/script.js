@@ -164,7 +164,13 @@ function displayBookResults(searchResults) {
   const books = searchResults.docs;
 
   for (let i = 0; i < books.length; i++) {
-    if ($(".book-result").length < 5 && books[i].readinglog_count > 10) {
+    if (
+      $(".book-result").length < 5 &&
+      (books[i].hasOwnProperty("id_goodreads") ||
+        books[i].hasOwnProperty("id_amazon")) &&
+      books[i].hasOwnProperty("author_name")
+    ) {
+      console.log(books[i]);
       createBookCard(books[i]);
     }
   }
