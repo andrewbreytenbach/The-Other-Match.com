@@ -37,19 +37,19 @@ The first step in designing this project was to design a wireframe for it. This 
 
 Once the user first acceses the wesbpage, the following image is what they will see: 
 
-![Start Page](/assets/images/ "Start Page")
+![Start Page](/assets/images/start-page.png "Start Page")
 
 In order to search for a book to see if it has been turned into a movie, the user will navigate to the search bar and type the name of a book. From there, the OpenLibrary API will be fetched to see if the book even exists. If the book exists, then the user will see the following image in the search results:
 
-![Book Search](/assets/images/ "Book Search")
+![Book Search](/assets/images/book-search.png "Book Search")
 
 If the book exists in the OpenLibrary API, then the JavaScript will check to see if the same title also exists in the TMDB API. If it does exists in that API, then this is what the user will see on the webpage:
 
-![Movie Results](/assets/images/ "Movie Results")
+![Movie Results](/assets/images/movie.png "Movie Results")
 
 If a user wishes to view their previous search history, they simply can click on the list item under the previous searches and the page will display that item's search results, as shown below:
 
-![Previous Searches](/assets/images/ "Previous Searches")
+![Previous Searches](/assets/images/search-history.png "Previous Searches")
 
 ## Branch Convention
 
