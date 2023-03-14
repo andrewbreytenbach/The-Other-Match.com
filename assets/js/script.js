@@ -1,9 +1,9 @@
-
 /* EVENT LISTENERS---------------------------------------------------------
  */
 $("#search-button").click(searchForBooks);
 $("#previous-searches").on("click", ".search-term", getPreviousSearch);
 $("#book-results").on("click", ".book-result", searchForMovies);
+$("#clear-button").click(clearSearchHistory);
 
 /* MOVIE API---------------------------------------------------------------
  */
@@ -27,7 +27,6 @@ const movieYear = function (movie) {
   let array = movie.release_date.split("-");
   return array[0];
 };
-
 
 function createMovieCard(movie) {
   let movieCard = $("<div>");
@@ -131,6 +130,10 @@ if (searchHistory.length > 0) {
 function getPreviousSearch(previousSearch) {
   $("#search-bar").val(previousSearch.target.innerHTML);
   $("#search-button").click();
+}
+
+function clearSearchHistory() {
+  localStorage.removeItem("searchHistory");
 }
 
 /* OPEN LIBRARY API & BOOK SEARCH----------------------------------------------------
