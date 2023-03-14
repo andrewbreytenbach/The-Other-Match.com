@@ -31,21 +31,22 @@ const movieYear = function (movie) {
 
 function createMovieCard(movie) {
   let movieCard = $("<div>");
-  movieCard.addClass("card movie-result");
+  movieCard.addClass("card m-2 column is-one-third movie-result");
   movieCard.html(`
         <div class="card-image">
-            <figure class="image is-4by3">
+            <figure class="image">
                 <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
                   movie.poster_path
                 }" alt="movie cover image">
             </figure>
         </div>
         <div class="card-content">
-            <p class="title is-4">${movie.original_title} (${movieYear(
+            <p class="title is-6">${movie.original_title} (${movieYear(
     movie
   )})</p>
             <p class="subtitle is-6">${""}</p>
         </div>
+        
   `);
   $("#movie-results").append(movieCard);
 }
@@ -176,16 +177,15 @@ function displayBookResults(searchResults) {
 function createBookCard(book) {
   console.log(book);
   let bookCard = $("<div>");
-  bookCard.addClass("card book-result");
+  bookCard.addClass("card column is-one-third book-result");
   bookCard.data("metadata", {
     title: `${book.title}`,
     year: `${book.first_publish_year}`,
     author: `${book.author_name}`,
   });
   bookCard.html(`
-  <div class="card column is-one-third">
         <div class="card-image">
-            <figure>
+            <figure class="image">
                 <img src="${
                   book.cover_i
                     ? `http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
@@ -201,7 +201,7 @@ function createBookCard(book) {
               book.author_name ? book.author_name.join(", ") : "Unknown"
             }</p>
         </div>
-        </div>
+      
   `);
   $("#book-results").append(bookCard);
 }

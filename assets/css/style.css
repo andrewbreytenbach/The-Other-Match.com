@@ -13,13 +13,6 @@
      color: #b4c5c9;
  }
 
- /* book and movie cards */
- .card {
-     max-width: 25%;
-     justify-content: space-evenly;
-     height: 200px;
-     display: inline;
- }  
 
  /* previous searches */
  span {
@@ -59,11 +52,11 @@
  } */
 
  /* container for both book and movie columns */
- div.columns.is-mobile {
+ /* div.columns.is-mobile {
      justify-content: space-between;
      
 
- }
+ } */
 
 
  
@@ -82,30 +75,6 @@
 
  }
 
-
- div.movie-column {
-     padding: 0px;
-     font-size: 26px;
-     font-weight: bolder;
-     color: rgb(203, 110, 3);
-
- }
-
-
- /* individual card results */
- div.book-result{
-    display: inline-block;
-    
-
-}
-
-figure{
-    display: inline;
-    flex-wrap: wrap;
-    width: 20vh;
-    height: 20vh;
-}
-
 #previous-searches{
 display: flex;
 align-items: flex-start;
@@ -116,4 +85,4 @@ padding: 10px;
     display: flex;
     justify-content: space-between;
 }
-
+ 
