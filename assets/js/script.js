@@ -92,10 +92,7 @@ if (storedValues !== null) {
 
 // create Previous Searches HTML Elements using searchHistory array
 function createSearchList(array) {
-  $("#previous-searches").empty();
-  $("#previous-searches").html(`<div id="search-container">
-    <span>Previous Searches:</span>
-    <ul id="search-history"></ul> </div>`);
+  $("#search-history").empty();
   for (let i = 0; i < array.length; i++) {
     if (i < 5) {
       $("#search-history").append(`<li class="search-term">${array[i]}</li>`);
@@ -123,7 +120,15 @@ function removeArrayDuplicates(array) {
 
 // on page load, if searchHistory has values, run createSearchList
 if (searchHistory.length > 0) {
+  $("span").text("Previous Searches: ");
   createSearchList(searchHistory);
+} else {
+  let examples = [
+    "Call Me By Your Name",
+    "Perks of Being A Wallflower",
+    "Narnia",
+  ];
+  createSearchList(examples);
 }
 
 // Load a previous search
@@ -162,8 +167,8 @@ function displayBookResults(searchResults) {
   for (let i = 0; i < books.length; i++) {
     if (
       $(".book-result").length < 5 &&
-      books[i].readinglog_count > 100 &&
-      !resultAuthors.includes(books[i].author_name[0])
+      books[i].readinglog_count > 100 // &&
+      // !resultAuthors.includes(books[i].author_name[0]
     ) {
       resultAuthors.push(books[i].author_name[0]);
       createBookCard(books[i]);
@@ -177,7 +182,7 @@ function displayBookResults(searchResults) {
 // Create HTML element for a single book result and append to #book-results in HTML
 function createBookCard(book) {
   let bookCard = $("<div>");
-  bookCard.addClass("card column is-one-third book-result");
+  bookCard.addClass("card column m-2 is-one-third book-result");
   bookCard.data("metadata", {
     title: `${book.title}`,
     year: `${book.first_publish_year}`,
