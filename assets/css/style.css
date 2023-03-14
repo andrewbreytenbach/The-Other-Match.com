@@ -19,7 +19,7 @@
  h2 {
     font-size: 30px;
  }
-
+ 
  /* paragraph under header */
  .opener {
      text-align: center;
@@ -46,7 +46,6 @@ display: flex;
 justify-content: center;
 margin: auto;
 padding: 10px;
-
 }
 
 #previous-searches ul{
@@ -66,4 +65,3 @@ content: ",";
 .search-term:hover{
     cursor: pointer;
 }
-

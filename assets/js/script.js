@@ -162,16 +162,9 @@ function displayBookResults(searchResults) {
   $("#book-results").html("");
   $("#movie-results").html("");
   const books = searchResults.docs;
-  let resultAuthors = [];
 
   for (let i = 0; i < books.length; i++) {
-    if (
-      $(".book-result").length < 5 &&
-      books[i].readinglog_count > 100 // &&
-      // !resultAuthors.includes(books[i].author_name[0]
-    ) {
-      resultAuthors.push(books[i].author_name[0]);
-      console.log(resultAuthors);
+    if ($(".book-result").length < 5 && books[i].readinglog_count > 10) {
       createBookCard(books[i]);
     }
   }
@@ -182,7 +175,6 @@ function displayBookResults(searchResults) {
 
 // Create HTML element for a single book result and append to #book-results in HTML
 function createBookCard(book) {
-  console.log(book);
   let bookCard = $("<div>");
   bookCard.addClass("card column m-2 is-one-third book-result");
   bookCard.data("metadata", {
