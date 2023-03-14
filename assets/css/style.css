@@ -1,6 +1,9 @@
+ html, body {
+    height: 100%;
+ }
+
  body {
-     font-family: 'Kanit', serif;
-     
+    font-family: 'Kanit', serif;
  }
 
  h1 {
@@ -13,7 +16,9 @@
      color: #b4c5c9;
  }
 
-   
+ h2 {
+    font-size: 30px;
+ }
 
  /* paragraph under header */
  .opener {
@@ -24,7 +29,6 @@
      color: rgb(0, 63, 82);
  }
 
-
  div.column {
      display: inline-bock;
      flex-wrap: wrap;
@@ -33,21 +37,15 @@
      text-align: center;
      font-size: 26px;
      font-weight: bolder;
-     margin-left: 50px;
+     /* margin-left: 50px; */
      color: rgb(203, 110, 3);
-     
-
  }
-    
-
-  
 
 #search-container{
 display: flex;
 justify-content: center;
 margin: auto;
 padding: 10px;
-
 
 }
 
@@ -61,12 +59,9 @@ padding: 10px;
     margin-left: 10px;
 }
 
-.search-term::after{
+.search-term:not(:last-child):after{
 content: ",";
 }
-
- 
-
 
 .search-term:hover{
     cursor: pointer;
