@@ -95,8 +95,7 @@ function createSearchList(array) {
   $("#previous-searches").empty();
   $("#previous-searches").html(`<div id="search-container">
     <span>Previous Searches:</span>
-    <ul id="search-history"></ul> </div>`
-  );
+    <ul id="search-history"></ul> </div>`);
   for (let i = 0; i < array.length; i++) {
     if (i < 5) {
       $("#search-history").append(`<li class="search-term">${array[i]}</li>`);
@@ -167,7 +166,6 @@ function displayBookResults(searchResults) {
       !resultAuthors.includes(books[i].author_name[0])
     ) {
       resultAuthors.push(books[i].author_name[0]);
-      console.log(resultAuthors);
       createBookCard(books[i]);
     }
   }
@@ -178,7 +176,6 @@ function displayBookResults(searchResults) {
 
 // Create HTML element for a single book result and append to #book-results in HTML
 function createBookCard(book) {
-  console.log(book);
   let bookCard = $("<div>");
   bookCard.addClass("card column is-one-third book-result");
   bookCard.data("metadata", {
