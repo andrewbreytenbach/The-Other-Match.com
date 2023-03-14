@@ -92,9 +92,9 @@ if (storedValues !== null) {
 // create Previous Searches HTML Elements using searchHistory array
 function createSearchList(array) {
   $("#previous-searches").empty();
-  $("#previous-searches").append(
-    `<span>Previous Searches:</span>`,
-    `<ul id="search-history"></ul>`
+  $("#previous-searches").html(`<div id="search-container">
+    <span>Previous Searches:</span>
+    <ul id="search-history"></ul> </div>`
   );
   for (let i = 0; i < array.length; i++) {
     if (i < 5) {
