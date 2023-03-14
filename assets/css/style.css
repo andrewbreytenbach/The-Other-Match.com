@@ -32,34 +32,6 @@
      color: rgb(0, 63, 82);
  }
 
- /* #search-bar {
-     max-width: 100%;
-     margin-top: 20px;
-     margin-left: 400px;
-     padding-bottom: 7px;
-
-
-
- }
-
- #search-button {
-     margin-top: 20px;
-     margin-left: 402px;
-     display: block;
-     float: right;
-
-
- } */
-
- /* container for both book and movie columns */
- /* div.columns.is-mobile {
-     justify-content: space-between;
-     
-
- } */
-
-
- 
 
  div.column {
      display: inline-bock;
