@@ -75,8 +75,6 @@ This repo is distributed under an MIT license. Click the MIT file in the reposio
 
 Project Link: [https://andrewbreytenbach.github.io/movie-book-match/] (The Other Match.com)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## Acknowledgments
 
 * [https://www.w3docs.com/] (W3 Docs)
