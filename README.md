@@ -25,7 +25,7 @@ Overall, this code enables users to search for books and view their correspondin
 
 ## Getting Started
 
-In order to acess this website, just visit the following webpage: [https://github.com/andrewbreytenbach/movie-book-match](https://github.com/andrewbreytenbach/movie-book-match)
+In order to acess this project, just visit the following webpage: [https://github.com/andrewbreytenbach/movie-book-match](https://github.com/andrewbreytenbach/movie-book-match)
 
 To get a local copy up and running, simply view the index.html file, stle.css, or the script.js file and see how you can play around, copy, and edit the file for personal usage to see what APIs we used. You can also change the search features used or the way the webpage is designed.
 
