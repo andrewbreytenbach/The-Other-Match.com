@@ -183,8 +183,9 @@ function createBookCard(book) {
     author: `${book.author_name}`,
   });
   bookCard.html(`
+  <div class="card column is-one-third">
         <div class="card-image">
-            <figure class="image is-4by3">
+            <figure>
                 <img src="${
                   book.cover_i
                     ? `http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
@@ -193,12 +194,13 @@ function createBookCard(book) {
             </figure>
         </div>
         <div class="card-content">
-            <p class="title is-4">${book.title ? book.title : "Unknown"} (${
+            <p class="title is-6">${book.title ? book.title : "Unknown"} (${
     book.first_publish_year
   })</p>
             <p class="subtitle is-6">${
               book.author_name ? book.author_name.join(", ") : "Unknown"
             }</p>
+        </div>
         </div>
   `);
   $("#book-results").append(bookCard);

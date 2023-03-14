@@ -18,8 +18,8 @@
 
         <h1>The Other Match.com</h1>
         <p class="opener">If you've ever wondered if that book you love has been made into a movie, look no further! Type your favorite
-            book in below!</p
-        <div class="field has-addons">
+            book in below!</p>
+        <div class="field has-addons is-justify-content-center">
             <div class="control">
                 <input id="search-bar" class="input" type="text" placeholder="Enter a book">
             </div>
@@ -29,6 +29,8 @@
                 </a>
             </div>
         </div>
+       
+    </header>
         
         </button>
 
@@ -38,18 +40,17 @@
         <div><span>Previous Searches:</span></div>
 
         <div class="columns is-mobile">
-            <div class="book-column">Book Results
-                <p class ="book-p">Select a book to see if there is a movie</p>
+            <div class="column is-half ml-3">Book Results
                 <section id="books-section">
-                    <div id="book-results"></div>
+                    <div id="book-results" class="columns is-justify-content-center m-2 p-2
+                    "></div>
                 </section>
             </div>
 
 
-            <div class="movie-column">Movie Results
-                <p class="movie-p">Here are the movies we've found</p>
+            <div class="column is-half is-flex-wrap-wrap">Movie Results
                 <section id="movies-section">
-                    <div id="movie-results"></div>
+                    <div id="movie-results" class="columns is-multiline is-one-quarter mr-5 m-2 pr-2 is-3"></div>
                 </section>
             </div>
 

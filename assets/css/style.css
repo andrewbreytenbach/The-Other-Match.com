@@ -1,10 +1,6 @@
  body {
      font-family: 'Kanit', serif;
-     background-color: #b4c5c9;
-
-
-
-
+     
  }
 
  h1 {
@@ -19,20 +15,11 @@
 
  /* book and movie cards */
  .card {
-     max-width: 35%;
+     max-width: 25%;
      justify-content: space-evenly;
      height: 200px;
      display: inline;
-
-
-span{
-    font-size: 16px;
-    padding-top: 50px;
-    margin-left: 275px;
-    margin-top: 30px;
-    align-items: flex-start;
-    
-}
+ }  
 
  /* previous searches */
  span {
@@ -52,7 +39,7 @@ span{
      color: rgb(0, 63, 82);
  }
 
- #search-bar {
+ /* #search-bar {
      max-width: 100%;
      margin-top: 20px;
      margin-left: 400px;
@@ -69,7 +56,7 @@ span{
      float: right;
 
 
- }
+ } */
 
  /* container for both book and movie columns */
  div.columns.is-mobile {
@@ -79,29 +66,20 @@ span{
  }
 
 
- #book-title {
-     font-size: 10px;
-     padding-top: 50px;
-     margin-left: 190px;
+ 
 
- }
-
- div.book-column {
-     display: flexbox;
+ div.column {
+     display: inline-bock;
+     flex-wrap: wrap;
+     width: 45%;
      padding: 20px;
      text-align: center;
      font-size: 26px;
      font-weight: bolder;
      margin-left: 50px;
      color: rgb(203, 110, 3);
-     font-weight: 800px;
-
- }
-
- .book-p{
-     font-size: 13px;
-     color: rgb(0, 71, 93);
      
+
  }
 
 
@@ -113,19 +91,19 @@ span{
 
  }
 
-.movie-p {
-    font-size: 13px;
-    margin-right: 300px;
-    color: rgb(0, 71, 93);
+
+ /* individual card results */
+ div.book-result{
+    display: inline-block;
     
 
 }
 
- /* individual card results */
- div.result{
+figure{
     display: inline;
-    
-
+    flex-wrap: wrap;
+    width: 20vh;
+    height: 20vh;
 }
 
 #previous-searches{
