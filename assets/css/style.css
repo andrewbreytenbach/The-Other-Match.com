@@ -13,15 +13,7 @@
      color: #b4c5c9;
  }
 
-
-
- span {
-     font-size: 16px;
-     padding-top: 200px;
-     margin-left: 450px;
-     margin-top: 0px;
-
- }
+   
 
  /* paragraph under header */
  .opener {
@@ -46,15 +38,37 @@
      
 
  }
+    
 
-#previous-searches{
+  
+
+#search-container{
 display: flex;
-align-items: flex-start;
+justify-content: center;
+margin: auto;
 padding: 10px;
+
+
 }
 
 #previous-searches ul{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
+
+.search-term{
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.search-term::after{
+content: ",";
+}
+
  
+
+
+.search-term:hover{
+    cursor: pointer;
+}
+

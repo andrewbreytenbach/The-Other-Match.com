@@ -1,9 +1,9 @@
-
 /* EVENT LISTENERS---------------------------------------------------------
  */
 $("#search-button").click(searchForBooks);
 $("#previous-searches").on("click", ".search-term", getPreviousSearch);
 $("#book-results").on("click", ".book-result", searchForMovies);
+$("#clear-button").click(clearSearchHistory);
 
 /* MOVIE API---------------------------------------------------------------
  */
@@ -27,7 +27,6 @@ const movieYear = function (movie) {
   let array = movie.release_date.split("-");
   return array[0];
 };
-
 
 function createMovieCard(movie) {
   let movieCard = $("<div>");
@@ -94,9 +93,9 @@ if (storedValues !== null) {
 // create Previous Searches HTML Elements using searchHistory array
 function createSearchList(array) {
   $("#previous-searches").empty();
-  $("#previous-searches").append(
-    `<span>Previous Searches:</span>`,
-    `<ul id="search-history"></ul>`
+  $("#previous-searches").html(`<div id="search-container">
+    <span>Previous Searches:</span>
+    <ul id="search-history"></ul> </div>`
   );
   for (let i = 0; i < array.length; i++) {
     if (i < 5) {
@@ -132,6 +131,10 @@ if (searchHistory.length > 0) {
 function getPreviousSearch(previousSearch) {
   $("#search-bar").val(previousSearch.target.innerHTML);
   $("#search-button").click();
+}
+
+function clearSearchHistory() {
+  localStorage.removeItem("searchHistory");
 }
 
 /* OPEN LIBRARY API & BOOK SEARCH----------------------------------------------------
